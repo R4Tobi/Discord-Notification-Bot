@@ -16,3 +16,7 @@ class Logger:
     def log(self, msg):
         print(f"\033[30m{self.getTime()} \033[94m{'INFO'}     \033[95m{'custom.bot'} \033[0m{msg}")
         self.writeFile(f"{self.getTime()} INFO  custom.bot {msg}")
+    
+    def error(self, msg):
+        print(f"\033[30m{self.getTime()} \033[91m{'ERROR'}    \033[95m{'custom.bot'} \033[0m{msg}")
+        self.writeFile(f"{self.getTime()} ERROR custom.bot {msg}")
