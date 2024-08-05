@@ -18,6 +18,18 @@ logger = Logger();
 async def on_ready():
     logger.log(f'Logged in as {bot.user.name} ({bot.user.id})')
     logger.log('------')
+    for guild in bot.guilds:
+        role = discord.utils.get(guild.roles, name='notifications')
+        if role:
+            logger.log(f'Role "notifications" found in guild {guild.name}')
+        else:
+            logger.error(f'Role "notifications" not found in guild {guild.name}')
+
+        channel = discord.utils.get(guild.text_channels, name='notifications')
+        if channel:
+            logger.log(f'Text channel "notifications" found in guild {guild.name}')
+        else:
+            logger.error(f'Text channel "notifications" not found in guild {guild.name}')
 
 @bot.event 
 async def on_message(message):
