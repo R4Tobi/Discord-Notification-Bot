@@ -1,1 +1,1 @@
-sudo python3 bot.py >> /home/pi/discordbot/log.txt 2>&1
+sudo python3 bot.py 
