@@ -51,23 +51,21 @@ async def on_voice_state_update(member, before, after):
         
         # Check if the voice channel is empty before the user joins
         if len(after.channel.members) == 1:
-            logger.log(f'Channel {after.channel.name} was empty before {member.name} joined.')
-            
             # Get the 'notifications' role
             role = discord.utils.get(member.guild.roles, name='notifications')
             if role:
                 # Send a message in the default text channel (or any specific channel)
-                channel = discord.utils.get(member.guild.text_channels, name='general')  # Replace 'general' with your channel name
+                channel = discord.utils.get(member.guild.text_channels, name='notifications')  # Replace 'general' with your channel name
                 if channel:
                     await channel.send(f'{role.mention}, {member.mention} has joined the voice channel {after.channel.mention}.')
-                    logger.log(f'Sent message about {member.name} joining {after.channel.name}.')
+                    logger.log(f'{member.name} started a voice chat in {after.channel.name}.')
                 else:
-                    logger.log('Text channel not found.')
+                    logger.error('Text channel "notifications" not found.')
             else:
-                logger.log('Role "notifications" not found.')
+                logger.error('Role "notifications" not found.')
         else:
-            logger.log(f'Channel {after.channel.name} was not empty before {member.name} joined.')
+            logger.log(f'{member.name} joined a voice chat.')
     else:
-        logger.log(f'{member.name} did not join a new voice channel.')
+        logger.log(f'{member.name} left a voice channel.')
 
 bot.run(os.getenv('DISCORD_TOKEN'))
