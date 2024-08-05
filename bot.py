@@ -1,7 +1,13 @@
 import discord
 import asyncio
+import os
+from dotenv import load_dotenv
 from discord.ext import commands
 from logger import Logger
+from datetime import datetime
+
+# Load environment variables from .env file
+load_dotenv()
 
 intents = discord.Intents.all()
 
@@ -21,7 +27,20 @@ async def on_message(message):
         return 
 
     if message.content.startswith('$hello'): 
-        await message.channel.send('Hallo!')
+        await message.channel.send('Hallo! ' + message.author.mention)
+
+    if message.content.startswith('$timeout'):
+        args = message.content.split(' ')
+        if len(args) == 3:
+            try:
+                user = int(args[1].replace('<@!', '').replace('>', ''))
+                timeout = int(args[2])
+                member = message.guild.get_member(user)
+                member.timeout(datetime.now() + timeout, reason=args[3])
+            except ValueError:
+                await message.channel.send('Invalid parameter.')
+        else:
+            await message.channel.send('Invalid number of arguments.')
     
 @bot.event
 async def on_voice_state_update(member, before, after):
@@ -51,4 +70,4 @@ async def on_voice_state_update(member, before, after):
     else:
         logger.log(f'{member.name} did not join a new voice channel.')
 
-bot.run('ODA0MDk0NTYxOTA2NDU4Njk1.GkELDM.dFe8eU-6_aE78GBuxqLbDG5sXyEF5ru2kzuFdU')
+bot.run(os.getenv('DISCORD_TOKEN'))
