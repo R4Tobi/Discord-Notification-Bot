@@ -35,6 +35,7 @@ async def on_ready():
             guildLength = len(guild.name)
     
     logger.setGuildLength(guildLength)
+    logger.log("Guild", "User: Action/Message" )
 
 @bot.event 
 async def on_message(message):
@@ -56,16 +57,16 @@ async def on_voice_state_update(member, before, after):
                 channel = discord.utils.get(member.guild.text_channels, name='notifications')  # Replace 'general' with your channel name
                 if channel:
                     await channel.send(f'{role.mention}, {member.mention} has joined the voice channel {after.channel.mention}.')
-                    logger.log(member.guild.name, f'{member.name} started a voice channel in {after.channel.name}.')
+                    logger.log(member.guild.name, f'{member.name}: started a voice channel in {after.channel.name}.')
                 else:
                     logger.error(member.guild.name, 'Text channel "notifications" not found.')
             else:
                 logger.error(member.guild.name, 'Role "notifications" not found.')
         else:
-            logger.log(member.guild.name, f'{member.name} joined the voice channel {after.channel.name}.  Members: {[m.name for m in after.channel.members]}')
+            logger.log(member.guild.name, f'{member.name}: joined the voice channel {after.channel.name}.  Members: {[m.name for m in after.channel.members]}')
     elif before.channel is not None and after.channel is None:
-        logger.log(member.guild.name, f'{member.name} left voice channel {before.channel.name}.')
+        logger.log(member.guild.name, f'{member.name}: left voice channel {before.channel.name}.')
     elif before.channel is not None and after.channel is not None and before.channel is not after.channel:
-        logger.log(member.guild.name, f'{member.name} switched from {before.channel.name} to {after.channel.name}. Members: {[m.name for m in after.channel.members]}')
+        logger.log(member.guild.name, f'{member.name}: switched from {before.channel.name} to {after.channel.name}. Members: {[m.name for m in after.channel.members]}')
 
 bot.run(os.getenv('DISCORD_TOKEN'))
