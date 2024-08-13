@@ -28,4 +28,4 @@ class Logger:
         self.writeFile(str)
 
     def setGuildLength(self, length):
-        self.guildLength = length + 2
+        self.guildLength = length + 1
