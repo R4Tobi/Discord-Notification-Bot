@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Logger:
+    def __init__(self):
+        self.guildLength = 0
 
     def writeFile(self, msg):
         with open(os.getenv("LOGPATH"), "a") as f:
@@ -13,10 +15,17 @@ class Logger:
     def getTime(self):
         return time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 
-    def log(self, msg):
-        print(f"\033[30m{self.getTime()} \033[94m{'INFO'}     \033[95m{'custom.bot'} \033[0m{msg}")
-        self.writeFile(f"{self.getTime()} INFO  custom.bot {msg}")
+    def log(self, guild, msg):
+        guild = guild.ljust(self.guildLength)
+        str = f"\033[30m{self.getTime()} \033[94m{'INFO'}     \033[95m{'custom.bot'} \033[0m{guild} \033[0m{msg}";
+        print(str)
+        self.writeFile(str)
     
-    def error(self, msg):
-        print(f"\033[30m{self.getTime()} \033[91m{'ERROR'}    \033[95m{'custom.bot'} \033[0m{msg}")
-        self.writeFile(f"{self.getTime()} ERROR custom.bot {msg}")
+    def error(self, guild, msg):
+        guild = guild.ljust(self.guildLength)
+        str = f"\033[30m{self.getTime()} \033[91m{'ERROR'}    \033[95m{'custom.bot'} \033[0m{guild} \033[0m{msg}"
+        print(str)
+        self.writeFile(str)
+
+    def setGuildLength(self, length):
+        self.guildLength = length + 2
