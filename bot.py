@@ -59,7 +59,7 @@ async def on_voice_state_update(member, before, after):
         else:
             logger.log(f'{member.name} joined the voice channel {after.channel.name}.  Members: {[m.name for m in after.channel.members]}')
     elif before.channel is not None and after.channel is None:
-        logger.log(f'{member.name} left voice channel {before.channel.name}. Members: {[m.name for m in before.channel.members]}')
+        logger.log(f'{member.name} left voice channel {before.channel.name}.')
     elif before.channel is not None and after.channel is not None and before.channel is not after.channel:
         logger.log(f'{member.name} switched from {before.channel.name} to {after.channel.name}. Members: {[m.name for m in after.channel.members]}')
 
