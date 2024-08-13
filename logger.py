@@ -17,13 +17,13 @@ class Logger:
 
     def log(self, guild, msg):
         guild = guild.ljust(self.guildLength)
-        str = f"\033[30m{self.getTime()} \033[94m{'INFO'}     \033[95m{'custom.bot'} \033[0m{guild} \033[0m{msg}";
+        str = f"\033[30m{self.getTime()} \033[94m{'INFO'}     \033[35m{'custom.bot'} \033[90m{guild} \033[0m{msg}";
         print(str)
         self.writeFile(str)
     
     def error(self, guild, msg):
         guild = guild.ljust(self.guildLength)
-        str = f"\033[30m{self.getTime()} \033[91m{'ERROR'}    \033[95m{'custom.bot'} \033[0m{guild} \033[0m{msg}"
+        str = f"\033[30m{self.getTime()} \033[94m{'ERROR'}    \033[35m{'custom.bot'} \033[90m{guild} \033[0m{msg}"
         print(str)
         self.writeFile(str)
 

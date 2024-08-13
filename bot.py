@@ -16,7 +16,7 @@ logger = Logger();
 
 @bot.event
 async def on_ready():
-    guildLength = 0;
+    guildLength = 20;
     logger.log("   ", f'Logged in as {bot.user.name} ({bot.user.id})')
     for guild in bot.guilds:
         role = discord.utils.get(guild.roles, name='notifications')
@@ -35,7 +35,9 @@ async def on_ready():
             guildLength = len(guild.name)
     
     logger.setGuildLength(guildLength)
+    logger.log(" ", " ")
     logger.log("Guild", "User: Action/Message" )
+    logger.log("--------------------", "----------------------------------------")
 
 @bot.event 
 async def on_message(message):
