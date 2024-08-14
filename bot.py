@@ -37,7 +37,7 @@ async def on_ready():
     logger.setGuildLength(guildLength)
     logger.log(" ", " ")
     logger.log("Guild", "User: Action/Message" )
-    logger.log("--------------------", "----------------------------------------")
+    logger.log("-"*guildLength, "----------------------------------------")
 
 @bot.event 
 async def on_message(message):
