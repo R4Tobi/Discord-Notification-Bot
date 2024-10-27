@@ -47,7 +47,7 @@ async def on_ready():
 
     logger.log('', '', '','')
     logger.log("Guild", "Channel", "User", "Message/Action")
-    logger.log("-"*guildLength, "----------------------------------------")
+    logger.log("-"*guildLength, "----------------------------------------", '','')
 
 @bot.event 
 async def on_message(message):
