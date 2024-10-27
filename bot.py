@@ -40,13 +40,17 @@ async def on_ready():
         
         for channel in guild.text_channels:
             if logger.channelLength < len(channel.name):
-                logger.setChannelLength(len(channel.name))
                 channelLength = len(channel.name)
 
         for member in guild.members:
             if logger.userLength < len(member.name):
-                logger.setUserLength(len(member.name))
                 userLength = len(member.name)
+
+    logger.setChannelLength(channelLength)
+    logger.setUserLength(userLength)
+    logger.setGuildLength(guildLength)
+
+    print(channelLength, userLength, guildLength)
 
     logger.log('', '', '','')
     logger.log("Guild", "Channel", "User", "Message/Action")
