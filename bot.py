@@ -16,7 +16,10 @@ logger = Logger();
 
 @bot.event
 async def on_ready():
-    guildLength = 20;
+    guildLength = 20
+    channelLength = 20
+    userLength = 20
+
     logger.log("   ", f'Logged in as {bot.user.name} ({bot.user.id})')
     for guild in bot.guilds:
         role = discord.utils.get(guild.roles, name='notifications')
@@ -32,11 +35,18 @@ async def on_ready():
             logger.error("   ", f'Text channel "notifications" not found in guild {guild.name}')
 
         if guildLength < len(guild.name):
-            guildLength = len(guild.name)
-    
-    logger.setGuildLength(guildLength)
+            logger.setGuildLength = len(guild.name)
+        
+        for channel in guild.text_channels:
+            if logger.channelLength < len(channel.name):
+                logger.setChannelLength = len(channel.name)
+
+        for member in guild.members:
+            if logger.userLength < len(member.name):
+                logger.setUserLength = len(member.name)
+
     logger.log(" ", " ")
-    logger.log("Guild", "User: Action/Message" )
+    logger.log("Guild", "Channel", "User", "Message/Action")
     logger.log("-"*guildLength, "----------------------------------------")
 
 @bot.event 
@@ -59,16 +69,16 @@ async def on_voice_state_update(member, before, after):
                 channel = discord.utils.get(member.guild.text_channels, name='notifications')  # Replace 'general' with your channel name
                 if channel:
                     await channel.send(f'{role.mention}, {member.mention} has joined the voice channel {after.channel.mention}.')
-                    logger.log(member.guild.name, f'{member.name}: started a voice channel in {after.channel.name}.')
+                    logger.log(member.guild.name, after.channel.name, member.name, f'started')
                 else:
-                    logger.error(member.guild.name, 'Text channel "notifications" not found.')
+                    logger.error(member.guild.name,'', '', 'Text channel "notifications" not found.')
             else:
-                logger.error(member.guild.name, 'Role "notifications" not found.')
+                logger.error(member.guild.name,'','', 'Role "notifications" not found.')
         else:
-            logger.log(member.guild.name, f'{member.name}: joined the voice channel {after.channel.name}.  Members: {[m.name for m in after.channel.members]}')
+            logger.log(member.guild.name, after.channel.name, member.name, f'joined. Members: {[m.name for m in after.channel.members]}')
     elif before.channel is not None and after.channel is None:
-        logger.log(member.guild.name, f'{member.name}: left voice channel {before.channel.name}.')
+        logger.log(member.guild.name, after.channel.name, member.name, f'left')
     elif before.channel is not None and after.channel is not None and before.channel is not after.channel:
-        logger.log(member.guild.name, f'{member.name}: switched from {before.channel.name} to {after.channel.name}. Members: {[m.name for m in after.channel.members]}')
+        logger.log(member.guild.name, after.channel.name, member.name, f'switched from {before.channel.name}. Members: {[m.name for m in after.channel.members]}')
 
 bot.run(os.getenv('DISCORD_TOKEN'))
