@@ -20,19 +20,19 @@ async def on_ready():
     channelLength = 20
     userLength = 20
 
-    logger.log("   ", f'Logged in as {bot.user.name} ({bot.user.id})')
+    logger.log("   ", f'Logged in as {bot.user.name} ({bot.user.id})', '','')
     for guild in bot.guilds:
         role = discord.utils.get(guild.roles, name='notifications')
         if role:
-            logger.log("   ", f'Role "notifications" found in guild {guild.name}')
+            logger.log("   ", f'Role "notifications" found in guild {guild.name}', '','')
         else:
-            logger.error("   ", f'Role "notifications" not found in guild {guild.name}')
+            logger.error("   ", f'Role "notifications" not found in guild {guild.name}', '','')
 
         channel = discord.utils.get(guild.text_channels, name='notifications')
         if channel:
-            logger.log("   ", f'Text channel "notifications" found in guild {guild.name}')
+            logger.log("   ", f'Text channel "notifications" found in guild {guild.name}', '','')
         else:
-            logger.error("   ", f'Text channel "notifications" not found in guild {guild.name}')
+            logger.error("   ", f'Text channel "notifications" not found in guild {guild.name}', '','')
 
         if guildLength < len(guild.name):
             logger.setGuildLength = len(guild.name)
@@ -45,7 +45,7 @@ async def on_ready():
             if logger.userLength < len(member.name):
                 logger.setUserLength = len(member.name)
 
-    logger.log(" ", " ")
+    logger.log('', '', '','')
     logger.log("Guild", "Channel", "User", "Message/Action")
     logger.log("-"*guildLength, "----------------------------------------")
 
