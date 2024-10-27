@@ -54,6 +54,8 @@ async def on_ready():
     logger.setUserLength(userLength)
     logger.setGuildLength(guildLength)
 
+    print(guildLength, channelLength, userLength)
+
     logger.log('', '', '','')
     logger.log("Guild", "Channel", "User", "Message/Action")
     logger.log("-"*(guildLength + 1), "-"*(channelLength + 1), "-"*(userLength + 1),"--------------------")
