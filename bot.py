@@ -41,6 +41,10 @@ async def on_ready():
         for channel in guild.text_channels:
             if logger.channelLength < len(channel.name):
                 channelLength = len(channel.name)
+        
+        for channel in guild.voice_channels:
+            if logger.channelLength < len(channel.name):
+                channelLength = len(channel.name)
 
         for member in guild.members:
             if logger.userLength < len(member.name):
