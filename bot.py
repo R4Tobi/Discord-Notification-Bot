@@ -35,17 +35,17 @@ async def on_ready():
             logger.error("   ", f'Text channel "notifications" not found in guild {guild.name}', '','')
 
         if guildLength < len(guild.name):
-            logger.setGuildLength = len(guild.name)
+            logger.setGuildLength(len(guild.name))
             guildLength = len(guild.name)
         
         for channel in guild.text_channels:
             if logger.channelLength < len(channel.name):
-                logger.setChannelLength = len(channel.name)
+                logger.setChannelLength(len(guild.name))
                 channelLength = len(channel.name)
 
         for member in guild.members:
             if logger.userLength < len(member.name):
-                logger.setUserLength = len(member.name)
+                logger.setUserLength(len(guild.name))
                 userLength = len(member.name)
 
     logger.log('', '', '','')
