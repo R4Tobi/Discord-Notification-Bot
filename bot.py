@@ -54,7 +54,7 @@ async def on_ready():
 
 @bot.event 
 async def on_message(message):
-    logger.log(message.guild.name, message.author.name + ": " + message.content)
+    logger.log(message.guild.name, message.channel.name, message.author.name, message.content)
 
     if message.author == bot.user: 
         return
