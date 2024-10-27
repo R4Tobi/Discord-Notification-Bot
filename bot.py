@@ -54,8 +54,6 @@ async def on_ready():
     logger.setUserLength(userLength)
     logger.setGuildLength(guildLength)
 
-    print(guildLength, channelLength, userLength)
-
     logger.log('', '', '','')
     logger.log("Guild", "Channel", "User", "Message/Action")
     logger.log("-"*(guildLength + 1), "-"*(channelLength + 1), "-"*(userLength + 1),"--------------------")
@@ -66,7 +64,15 @@ async def on_message(message):
 
     if message.author == bot.user: 
         return
-    
+
+@bot.event
+async def on_message_delete(message):
+    logger.log(message.guild.name, message.channel.name, message.author.name, "deleted message: " + message.content)
+
+@bot.event
+async def on_message_edit(before, after):
+    logger.log(before.guild.name, before.channel.name, before.author.name, f"edited message: {before.content} -> {after.content}")
+
 @bot.event
 async def on_voice_state_update(member, before, after):
     # Check if the user joined a voice channel
